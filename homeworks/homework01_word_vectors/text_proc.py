@@ -59,7 +59,7 @@ def get_tf(text):
     return tf
 
 
-def get_idf(tf):
+def get_idf(tf, alpha=1):
     count = {}
     sum = 0
     for txt in tf:
@@ -106,14 +106,12 @@ if __name__ == '__main__':
     keys, occurances, k = get_bow_keys(texts_train, max_size=10000)
     bow_rating = get_bow_rating(occurances=occurances, keys=keys)
 
-    alpha = 1
-
     tf_train = list(map(get_tf, texts_train))
     tf_test = list(map(get_tf, texts_test))
     # print(tf_train[0])
 
-    idf_train, count_train = get_idf(tf_train)
-    idf_test, count_test = get_idf(tf_test)
+    idf_train, count_train = get_idf(tf_train, alpha=1)
+    idf_test, count_test = get_idf(tf_test, alpha=1)
     # print(idf_train)
 
     tfidf_train = [get_tfidf(t, idf_train) for t in tf_train]
